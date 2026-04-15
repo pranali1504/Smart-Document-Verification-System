@@ -15,12 +15,9 @@ import {
   FileSearch,
   Shield,
   Zap,
-  Phone,
-  Mail,
   MessageCircle,
   ExternalLink,
   BookOpen,
-  Download,
 } from "lucide-react";
 
 const faqs = [
@@ -49,78 +46,55 @@ const faqs = [
     answer:
       "Most verifications complete within 30 seconds. Complex cases requiring manual review may take up to 2-3 business days.",
   },
-  {
-    question: "What happens if a document is flagged as suspicious?",
-    answer:
-      "Suspicious documents are marked for manual review by our verification experts. The institution is notified, and a detailed investigation report is generated within 48 hours.",
-  },
-  {
-    question: "Can institutions bulk upload their certificate records?",
-    answer:
-      "Yes, registered institutions can use our bulk upload feature to import historical certificate data via CSV/Excel files or integrate with our API for real-time synchronization.",
-  },
-  {
-    question: "How do I report a technical issue?",
-    answer:
-      "Use our support form below, email us directly, or check our status page for known issues. Our technical team responds to all queries within 4 hours during business hours.",
-  },
-];
-
-const resources = [
-  {
-    title: "API Documentation",
-    desc: "Complete integration guide for developers",
-    icon: BookOpen,
-  },
-  {
-    title: "Verification Guide",
-    desc: "Step-by-step process walkthrough",
-    icon: FileSearch,
-  },
-  {
-    title: "Security Whitepaper",
-    desc: "Technical security specifications",
-    icon: Shield,
-  },
-  {
-    title: "Status Page",
-    desc: "Real-time system status and uptime",
-    icon: Zap,
-  },
 ];
 
 export default function Help() {
-  const user = null; // Mock - in real app this would come from auth context
-
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#020617] text-white">
       <Navbar />
 
       <div className="container py-8">
         <div className="max-w-4xl mx-auto space-y-8">
+
           {/* Header */}
           <div className="text-center space-y-4">
-            <div className="w-20 h-20 rounded-full bg-hero-gradient flex items-center justify-center mx-auto">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center mx-auto">
               <HelpCircle className="h-10 w-10 text-white" />
             </div>
-            <h1 className="text-4xl font-display font-bold">Help Center</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Get help with document verification, account management, and
-              platform features
+
+            <h1 className="text-4xl font-bold text-white">
+              Help Center
+            </h1>
+
+            <p className="text-xl text-blue-200 max-w-2xl mx-auto">
+              Get help with document verification, account management, and platform features
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {resources.map((resource, index) => (
-              <Card key={index} className="hover-lift border-primary/20">
+            {[
+              { title: "API Docs", icon: BookOpen },
+              { title: "Verification Guide", icon: FileSearch },
+              { title: "Security", icon: Shield },
+              { title: "Status", icon: Zap },
+            ].map((item, index) => (
+              <Card
+                key={index}
+                className="bg-[#0a0f1c] border border-white/10 hover:border-cyan-500 transition"
+              >
                 <CardContent className="p-4 text-center">
-                  <resource.icon className="h-8 w-8 text-primary mx-auto mb-3" />
-                  <h3 className="font-medium mb-2">{resource.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    {resource.desc}
-                  </p>
-                  <Button variant="ghost" size="sm" className="w-full">
+                  <item.icon className="h-8 w-8 text-cyan-400 mx-auto mb-3" />
+
+                  <h3 className="font-medium mb-2 text-white">
+                    {item.title}
+                  </h3>
+
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full text-blue-200 hover:bg-white/10"
+                  >
                     <ExternalLink className="h-3 w-3 mr-2" />
                     Open
                   </Button>
@@ -129,26 +103,28 @@ export default function Help() {
             ))}
           </div>
 
-          {/* FAQ Section */}
-          <Card className="border-primary/20">
+          {/* FAQ */}
+          <Card className="bg-[#0a0f1c] border border-white/10">
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <HelpCircle className="h-5 w-5" />
-                <span>Frequently Asked Questions</span>
+              <CardTitle className="flex items-center space-x-2 text-white">
+                <HelpCircle className="h-5 w-5 text-cyan-400" />
+                <span className="font-semibold">FAQs</span>
               </CardTitle>
             </CardHeader>
+
             <CardContent>
               <Accordion type="single" collapsible className="space-y-2">
                 {faqs.map((faq, index) => (
                   <AccordionItem
                     key={index}
                     value={`item-${index}`}
-                    className="border rounded-lg px-4"
+                    className="border border-white/10 rounded-lg px-4 bg-[#020617]"
                   >
-                    <AccordionTrigger className="text-left font-medium">
+                    <AccordionTrigger className="text-left text-white">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
+
+                    <AccordionContent className="text-blue-200 leading-relaxed">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -157,151 +133,63 @@ export default function Help() {
             </CardContent>
           </Card>
 
+          {/* Contact */}
           <div className="grid lg:grid-cols-2 gap-6">
-            {/* Contact Form */}
-            <Card className="border-primary/20">
+
+            {/* Form */}
+            <Card className="bg-[#0a0f1c] border border-white/10">
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <MessageCircle className="h-5 w-5" />
+                <CardTitle className="flex items-center space-x-2 text-white">
+                  <MessageCircle className="h-5 w-5 text-cyan-400" />
                   <span>Contact Support</span>
                 </CardTitle>
               </CardHeader>
+
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">First Name</label>
-                    <Input placeholder="John" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Last Name</label>
-                    <Input placeholder="Doe" />
-                  </div>
-                </div>
+                <Input
+                  placeholder="First Name"
+                  className="bg-[#020617] border-white/10 text-white"
+                />
+                <Input
+                  placeholder="Last Name"
+                  className="bg-[#020617] border-white/10 text-white"
+                />
+                <Input
+                  placeholder="Email"
+                  className="bg-[#020617] border-white/10 text-white"
+                />
+                <Textarea
+                  placeholder="Message..."
+                  className="bg-[#020617] border-white/10 text-white"
+                />
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Email Address</label>
-                  <Input type="email" placeholder="john.doe@example.com" />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Subject</label>
-                  <Input placeholder="Brief description of your issue" />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Message</label>
-                  <Textarea
-                    placeholder="Provide detailed information about your issue or question..."
-                    className="min-h-[120px]"
-                  />
-                </div>
-
-                <Button variant="hero" className="w-full">
+                <Button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white">
                   Send Message
                 </Button>
-
-                <p className="text-xs text-muted-foreground text-center">
-                  We'll respond within 4 hours during business hours
-                </p>
               </CardContent>
             </Card>
 
-            {/* Contact Information */}
-            <Card className="border-primary/20">
+            {/* Info */}
+            <Card className="bg-[#0a0f1c] border border-white/10">
               <CardHeader>
-                <CardTitle>Get in Touch</CardTitle>
+                <CardTitle className="text-white">
+                  Get in Touch
+                </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Mail className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Email Support</p>
-                      <p className="text-sm text-muted-foreground">
-                        support@DocuShield.com
-                      </p>
-                      <Badge variant="outline" className="mt-1 text-xs">
-                        Response within 4 hours
-                      </Badge>
-                    </div>
-                  </div>
 
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Phone className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Phone Support</p>
-                      <p className="text-sm text-muted-foreground">
-                        +91-917-XXX-XXXX
-                      </p>
-                      <Badge variant="outline" className="mt-1 text-xs">
-                        Mon-Fri 9AM-6PM IST
-                      </Badge>
-                    </div>
-                  </div>
+              <CardContent className="space-y-4 text-blue-200">
+                <p>Email: support@docushield.com</p>
+                <p>Phone: +91-XXX-XXXX</p>
+                <p>Location: Pune, India</p>
 
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <MessageCircle className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Live Chat</p>
-                      <p className="text-sm text-muted-foreground">
-                        Available for urgent issues
-                      </p>
-                      <Button variant="outline" size="sm" className="mt-2">
-                        Start Chat
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="border-t pt-6">
-                  <h4 className="font-medium mb-4">Office Address</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Team Veritrust
-                    <br />
-                    Pune Vidyarathi Griha's College of Engineering
-                    <br />
-                    Pune
-                    <br />
-                    Maharashtra, India
-                  </p>
-                </div>
-
-                <div className="border-t pt-6">
-                  <h4 className="font-medium mb-4">System Status</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">Verification API</span>
-                      <Badge variant="default" className="bg-success text-xs">
-                        Operational
-                      </Badge>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">OCR Processing</span>
-                      <Badge variant="default" className="bg-success text-xs">
-                        Operational
-                      </Badge>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">Database Access</span>
-                      <Badge variant="default" className="bg-success text-xs">
-                        Operational
-                      </Badge>
-                    </div>
-                  </div>
-                  <Button variant="ghost" size="sm" className="w-full mt-3">
-                    View Status Page
-                    <ExternalLink className="h-3 w-3 ml-2" />
-                  </Button>
-                </div>
+                <Badge className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1 rounded-full">
+                  System Operational
+                </Badge>
               </CardContent>
             </Card>
+
           </div>
+
         </div>
       </div>
     </div>

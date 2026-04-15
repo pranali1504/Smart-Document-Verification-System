@@ -1,538 +1,165 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Shield,
-  Eye,
-  EyeOff,
-  CheckCircle,
-  AlertCircle,
-  ArrowLeft,
-  Mail,
-  Lock,
-} from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import graduationImage from "@/assets/graduation-digital.jpg";
+import { Shield, ArrowLeft, CheckCircle } from "lucide-react";
+import heroImage from "@/assets/DocVer2.jpeg";
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [role, setRole] = useState("verifier");
-  const [passwordStrength, setPasswordStrength] = useState(0);
-  const [otp, setOtp] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
-  const [activeTab, setActiveTab] = useState("login");
-  const { toast } = useToast();
-  const navigate = useNavigate();
 
-  // const API_BASE_URL = "https://hackodhisha-teamfb-backend.onrender.com";
-  const API_BASE_URL = "http://localhost:5000";
-  const calculatePasswordStrength = (pass: string) => {
-    let strength = 0;
-    if (pass.length >= 8) strength += 25;
-    if (/[A-Z]/.test(pass)) strength += 25;
-    if (/[0-9]/.test(pass)) strength += 25;
-    if (/[^A-Za-z0-9]/.test(pass)) strength += 25;
-    return strength;
-  };
-
-  const handlePasswordChange = (value: string) => {
-    setPassword(value);
-    setPasswordStrength(calculatePasswordStrength(value));
-  };
-
-  const handleSendOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/users/send-otp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || `Server error: ${response.status}`);
-      }
-
-      if (data.success) {
-        setOtpSent(true);
-        toast({
-          title: "OTP Sent",
-          description: "Check your email for the verification code",
-        });
-      } else {
-        throw new Error(data.message || "Failed to send OTP");
-      }
-    } catch (error: any) {
-      console.error("Send OTP error:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message || "Something went wrong. Please try again.",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleVerifyOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/users/verify-otp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, otp }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || `Server error: ${response.status}`);
-      }
-
-      if (data.success) {
-        toast({
-          title: "Login Successful",
-          description: `Welcome back! Redirecting to dashboard...`,
-        });
-
-        // Store token in localStorage
-        if (data.token) {
-          localStorage.setItem("authToken", data.token);
-        }
-
-        // Store user info in localStorage for dashboard display
-        if (data.user) {
-          localStorage.setItem("userInfo", JSON.stringify(data.user));
-        }
-
-        // Navigate to dashboard
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 500);
-      } else {
-        throw new Error(data.message || "Invalid OTP");
-      }
-    } catch (error: any) {
-      console.error("Verify OTP error:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message || "Something went wrong. Please try again.",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/users/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstname: firstName,
-          lastname: lastName,
-          email,
-          password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || `Server error: ${response.status}`);
-      }
-
-      if (data.success) {
-        toast({
-          title: "Registration Successful",
-          description: "Account created successfully! Logging you in...",
-        });
-
-        // Store token if provided (auto-login after registration)
-        if (data.token) {
-          localStorage.setItem("authToken", data.token);
-        }
-
-        // Store user info if provided
-        if (data.user) {
-          localStorage.setItem("userInfo", JSON.stringify(data.user));
-        }
-
-        // Auto-login: Navigate to dashboard if token is available
-        if (data.token) {
-          setTimeout(() => {
-            navigate("/dashboard");
-          }, 1000);
-        } else {
-          // If no token, switch to login tab
-          setActiveTab("login");
-        }
-      } else {
-        throw new Error(data.message || "Registration failed");
-      }
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Registration Failed",
-        description: error.message || "Something went wrong. Please try again.",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const resetOtpFlow = () => {
-    setOtpSent(false);
-    setOtp("");
-  };
+  // ✅ THIS IS THE MAIN FIX
+  const [isRegister, setIsRegister] = useState(false);
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left Panel - Image */}
-      <div className="hidden lg:flex lg:w-1/2 relative">
-        <img
-          src={graduationImage}
-          alt="Academic Verification"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-secondary/90" />
+    <div className="min-h-screen grid lg:grid-cols-2">
 
-        {/* Overlay Content */}
-        <div className="relative z-10 flex flex-col justify-center p-12 text-white">
-          <div className="max-w-md">
-            <div className="flex items-center space-x-3 mb-8">
-              <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-white/20 backdrop-blur-sm">
-                <Shield className="h-7 w-7" />
-              </div>
-              <div>
-                <h1 className="font-display text-2xl font-bold">DocuShield</h1>
-                <p className="text-white/80">Team Veritrust</p>
-              </div>
+      {/* LEFT SIDE */}
+      <div className="relative hidden lg:block">
+        <img src={heroImage} className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/80 to-blue-900/90" />
+
+        <div className="absolute inset-0 flex flex-col justify-center px-16 text-white space-y-6">
+
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <Shield className="h-6 w-6 text-white" />
             </div>
+            <div>
+              <h1 className="text-2xl font-bold">DocuShield</h1>
+              <p className="text-white/70 text-sm">Team VeriTrust</p>
+            </div>
+          </div>
 
-            <h2 className="text-4xl font-display font-bold mb-6">
-              Secure Academic Verification
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Join thousands of institutions and verifiers using the most
-              trusted certificate validation platform.
-            </p>
+          <h2 className="text-4xl font-bold">
+            Secure Academic Verification
+          </h2>
 
-            {/* Trust Badges */}
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="h-5 w-5 text-success" />
-                <span>Authorized Platform</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="h-5 w-5 text-success" />
-                <span>Professional-Grade Security</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="h-5 w-5 text-success" />
-                <span>Upto 99.7% Accuracy Rate</span>
-              </div>
+          <p className="text-white/80 max-w-md">
+            Join thousands of institutions and verifiers using the most trusted certificate validation platform.
+          </p>
+
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="text-emerald-400" /> Authorized Platform
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="text-emerald-400" /> Professional-Grade Security
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="text-emerald-400" /> Upto 99.7% Accuracy Rate
             </div>
           </div>
         </div>
       </div>
 
-      {/* Right Panel - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full max-w-md space-y-6">
-          {/* Back to Home */}
-          <Link
-            to="/"
-            className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
+      {/* RIGHT SIDE */}
+      <div className="flex items-center justify-center bg-[#020617] px-6">
+        <div className="w-full max-w-md">
+
+          <Link to="/" className="flex items-center text-blue-300 mb-6 hover:text-white">
+            <ArrowLeft className="mr-2" />
             Back to Home
           </Link>
 
-          {/* Form Card */}
-          <Card className="border-primary/20 shadow-elegant">
-            <CardHeader className="text-center">
-              <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 rounded-full bg-hero-gradient flex items-center justify-center">
-                  <Shield className="h-8 w-8 text-white" />
-                </div>
+          <Card className="bg-[#020817] border border-cyan-500/20">
+            <CardContent className="p-6 space-y-6">
+
+              {/* ICON */}
+              <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center">
+                <Shield className="text-white" />
               </div>
-              <CardTitle className="text-2xl font-display">
-                {otpSent ? "Verify Your Identity" : "Welcome Back"}
-              </CardTitle>
-              <p className="text-muted-foreground">
-                {otpSent
-                  ? "Enter the OTP sent to your email"
-                  : "Sign in to your account or create a new one"}
-              </p>
-            </CardHeader>
 
-            <CardContent>
-              {!otpSent ? (
-                <Tabs
-                  value={activeTab}
-                  onValueChange={setActiveTab}
-                  className="space-y-4"
+              {/* HEADING */}
+              <div className="text-center space-y-2">
+                <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                  {isRegister ? "Create Account" : "Welcome Back"}
+                </h2>
+
+                <p className="text-blue-200/80 text-sm">
+                  {isRegister
+                    ? "Create your account"
+                    : "Sign in to your account or create a new one"}
+                </p>
+              </div>
+
+              {/* TOGGLE */}
+              <div className="flex bg-[#020617] border border-cyan-500/20 rounded-lg p-1">
+                <button
+                  onClick={() => setIsRegister(false)}
+                  className={`flex-1 py-2 rounded-md ${
+                    !isRegister ? "bg-white text-black font-medium" : "text-blue-200"
+                  }`}
                 >
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="login">Login</TabsTrigger>
-                    <TabsTrigger value="register">Register</TabsTrigger>
-                  </TabsList>
+                  Login
+                </button>
 
-                  {/* Login Form */}
-                  <TabsContent value="login">
-                    <form onSubmit={handleSendOtp} className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address</Label>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="email"
-                            type="email"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="pl-10"
-                            required
-                          />
-                        </div>
-                      </div>
+                <button
+                  onClick={() => setIsRegister(true)}
+                  className={`flex-1 py-2 rounded-md ${
+                    isRegister ? "bg-white text-black font-medium" : "text-blue-200"
+                  }`}
+                >
+                  Register
+                </button>
+              </div>
 
-                      <Button
-                        type="submit"
-                        className="w-full"
-                        disabled={isLoading}
-                      >
-                        {isLoading
-                          ? "Sending OTP..."
-                          : "Send Verification Code"}
-                      </Button>
-                    </form>
-                  </TabsContent>
-
-                  {/* Register Form */}
-                  <TabsContent value="register">
-                    <form onSubmit={handleRegister} className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="firstName">First Name</Label>
-                          <Input
-                            id="firstName"
-                            placeholder="John"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="lastName">Last Name</Label>
-                          <Input
-                            id="lastName"
-                            placeholder="Doe"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="registerEmail">Email Address</Label>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="registerEmail"
-                            type="email"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="pl-10"
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="registerPassword">Password</Label>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="registerPassword"
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Create a password"
-                            value={password}
-                            onChange={(e) =>
-                              handlePasswordChange(e.target.value)
-                            }
-                            className="pl-10 pr-10"
-                            required
-                          />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            className="absolute right-2 top-1 h-8 w-8 p-0"
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            {showPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                            ) : (
-                              <Eye className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-
-                        {/* Password Strength */}
-                        {password && (
-                          <div className="space-y-1">
-                            <div className="flex items-center justify-between text-xs">
-                              <span>Password Strength</span>
-                              <span
-                                className={
-                                  passwordStrength >= 75
-                                    ? "text-success"
-                                    : passwordStrength >= 50
-                                    ? "text-warning"
-                                    : "text-destructive"
-                                }
-                              >
-                                {passwordStrength >= 75
-                                  ? "Strong"
-                                  : passwordStrength >= 50
-                                  ? "Medium"
-                                  : "Weak"}
-                              </span>
-                            </div>
-                            <div className="h-1 bg-muted rounded-full overflow-hidden">
-                              <div
-                                className={`h-full transition-all duration-300 ${
-                                  passwordStrength >= 75
-                                    ? "bg-success"
-                                    : passwordStrength >= 50
-                                    ? "bg-warning"
-                                    : "bg-destructive"
-                                }`}
-                                style={{ width: `${passwordStrength}%` }}
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      <Button
-                        type="submit"
-                        className="w-full"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? "Creating Account..." : "Create Account"}
-                      </Button>
-                    </form>
-                  </TabsContent>
-                </Tabs>
-              ) : (
-                // OTP Verification Form
-                <form onSubmit={handleVerifyOtp} className="space-y-4">
+              {/* ✅ LOGIN FORM */}
+              {!isRegister ? (
+                <>
                   <div className="space-y-2">
-                    <Label htmlFor="otp">Verification Code</Label>
+                    <label className="text-sm text-blue-200">Email Address</label>
                     <Input
-                      id="otp"
-                      type="text"
-                      placeholder="Enter 6-digit code"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
-                      required
+                      placeholder="Enter your email"
+                      className="bg-[#020617] border border-cyan-500/20 text-white"
                     />
-                    <p className="text-xs text-muted-foreground">
-                      Enter the 6-digit code sent to {email}
-                    </p>
                   </div>
 
-                  <div className="flex space-x-2">
-                    <Button
-                      type="submit"
-                      className="flex-1"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? "Verifying..." : "Verify Code"}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={resetOtpFlow}
-                      disabled={isLoading}
-                    >
-                      Back
-                    </Button>
+                  <Button className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-white">
+                    Send Verification Code
+                  </Button>
+                </>
+              ) : (
+                /* ✅ REGISTER FORM */
+                <>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Input placeholder="First Name" className="bg-[#020617] border border-cyan-500/20 text-white"/>
+                    <Input placeholder="Last Name" className="bg-[#020617] border border-cyan-500/20 text-white"/>
                   </div>
 
-                  <div className="text-center text-sm">
-                    <button
-                      type="button"
-                      onClick={handleSendOtp}
-                      className="text-primary hover:underline"
-                      disabled={isLoading}
-                    >
-                      Resend Code
-                    </button>
-                  </div>
-                </form>
+                  <Input placeholder="Email Address" className="bg-[#020617] border border-cyan-500/20 text-white"/>
+
+                  <Input placeholder="Password" type="password" className="bg-[#020617] border border-cyan-500/20 text-white"/>
+
+                  <Button className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-white">
+                   Create Account
+                  </Button>
+                </>
               )}
 
-              {/* Additional Links */}
-              {!otpSent && (
-                <div className="mt-6 text-center text-sm">
-                  <Link to="/help" className="text-primary hover:underline">
-                    Need help? Contact Support
-                  </Link>
-                </div>
-              )}
+              {/* HELP */}
+              <p className="text-center text-sm text-blue-300">
+                Need help?{" "}
+                <Link to="/help" className="text-cyan-400 hover:underline cursor-pointer">
+                  Contact Support
+                </Link>
+              </p>
+
             </CardContent>
           </Card>
 
-          {/* Legal Links */}
-          <div className="text-center text-xs text-muted-foreground">
+          {/* FOOTER */}
+          <p className="text-center text-xs text-blue-300 mt-6">
             By continuing, you agree to our{" "}
-            <Link to="/terms" className="text-primary hover:underline">
+            <Link to="/terms" className="text-cyan-400 hover:underline">
               Terms of Service
             </Link>{" "}
             and{" "}
-            <Link to="/privacy" className="text-primary hover:underline">
+            <Link to="/privacy" className="text-cyan-400 hover:underline">
               Privacy Policy
             </Link>
-          </div>
+          </p>
+
         </div>
       </div>
     </div>

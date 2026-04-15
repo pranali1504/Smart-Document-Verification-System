@@ -1,267 +1,210 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { FileText, Shield, AlertTriangle, Scale } from "lucide-react";
 
-/* Authenticity Validator Design System - Government Grade Trust & Security */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+export default function Terms() {
+  return (
+    <section className="py-20 bg-[#020617] text-white min-h-screen">
+      <div className="container max-w-4xl mx-auto">
 
-@layer base {
-  :root {
-    /* Trust & Authority Color Palette - More Colorful */
-    --background: 210 20% 98%;
-    --foreground: 220 13% 18%;
+        {/* Header */}
+        <div className="text-center mb-14">
+          <div className="w-16 h-16 mx-auto rounded-full bg-cyan-500/20 flex items-center justify-center mb-4">
+            <FileText className="h-8 w-8 text-cyan-400" />
+          </div>
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 13% 18%;
-    
-    --card-glass: 210 40% 96%;
+          <h1 className="text-4xl font-bold mb-4 tracking-tight">
+            Terms of Service
+          </h1>
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 18%;
+          <p className="text-blue-200/80 leading-relaxed">
+            Rules and guidelines for using the DocuShield platform
+          </p>
 
-    /* Primary: Emerald (Trust & Government) */
-    --primary: 158 64% 52%;
-    --primary-foreground: 0 0% 100%;
-    --primary-dark: 158 64% 42%;
-    --primary-light: 158 64% 62%;
+          <Badge className="mt-4 bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+            Effective from: January 1, 2026
+          </Badge>
+        </div>
 
-    /* Secondary: Professional Slate */
-    --secondary: 215 28% 17%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-light: 215 16% 47%;
+        {/* Acceptance */}
+        <Card className="bg-[#020817] border border-cyan-500/20 mb-8">
+          <CardContent className="p-6 space-y-4">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight">
+              <Shield className="h-5 w-5 text-cyan-400" />
+              Acceptance of Terms
+            </h2>
 
-    /* Accent: Cyan (Interactive Elements) */
-    --accent: 188 94% 53%;
-    --accent-foreground: 0 0% 100%;
-    --accent-light: 188 94% 63%;
+            <div className="space-y-3 text-blue-200/80 leading-relaxed">
+              <p>
+                By accessing and using the DocuShield document verification platform operated by Team VeriTrust,
+                you agree to be bound by these Terms of Service and all applicable laws and regulations.
+              </p>
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+              <p>
+                If you do not agree with any of these terms, you are prohibited from using this platform.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
-    /* Status Colors */
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+        {/* Permitted Use */}
+        <Card className="bg-[#020817] border border-cyan-500/20 mb-8">
+          <CardContent className="p-6 space-y-5">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight">
+              <FileText className="h-5 w-5 text-cyan-400" />
+              Permitted Use
+            </h2>
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 158 64% 52%;
+            <div>
+              <h4 className="text-cyan-300 font-semibold text-base mb-3">
+                You May:
+              </h4>
 
-    --radius: 0.75rem;
+              <div className="space-y-2 text-blue-200/80 leading-relaxed">
+                <p>Verify authentic academic documents for legitimate purposes</p>
+                <p>Use the platform for employment verification, admissions, or scholarship applications</p>
+                <p>Access verification reports and maintain verification history</p>
+                <p>Integrate with our API for authorized institutional use</p>
+              </div>
+            </div>
 
-    /* Gradients - More Vibrant */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card-glass)) 0%, hsl(var(--background)) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 100%);
-    --gradient-colorful: linear-gradient(135deg, hsl(var(--primary)/0.1) 0%, hsl(var(--accent)/0.1) 50%, hsl(var(--secondary)/0.1) 100%);
-    --gradient-dashboard: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--card-glass)) 100%);
+            <div>
+              <h4 className="text-cyan-300 font-semibold text-base mt-4 mb-3">
+                You May Not:
+              </h4>
 
-    /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.2);
-    --shadow-card: 0 4px 20px -4px hsl(220 13% 18% / 0.1);
-    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+              <div className="space-y-2 text-blue-200/80 leading-relaxed">
+                <p>Upload fraudulent or tampered documents</p>
+                <p>Attempt to circumvent security measures or verification processes</p>
+                <p>Use the platform for illegal or unauthorized purposes</p>
+                <p>Share your account credentials with unauthorized parties</p>
+                <p>Reverse engineer or attempt to extract proprietary algorithms</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        {/* User Responsibilities */}
+        <Card className="bg-[#020817] border border-cyan-500/20 mb-8">
+          <CardContent className="p-6 space-y-5">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight">
+              <Scale className="h-5 w-5 text-cyan-400" />
+              User Responsibilities
+            </h2>
 
-    --sidebar-background: 0 0% 98%;
+            <div>
+              <h4 className="text-cyan-300 font-semibold text-base mb-3">
+                Account Security:
+              </h4>
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+              <div className="space-y-2 text-blue-200/80 leading-relaxed">
+                <p>Maintain confidentiality of your login credentials</p>
+                <p>Notify us immediately of any unauthorized access</p>
+                <p>Use strong passwords and enable two-factor authentication when available</p>
+              </div>
+            </div>
 
-    --sidebar-primary: 240 5.9% 10%;
+            <div>
+              <h4 className="text-cyan-300 font-semibold text-base mt-4 mb-3">
+                Document Handling:
+              </h4>
 
-    --sidebar-primary-foreground: 0 0% 98%;
+              <div className="space-y-2 text-blue-200/80 leading-relaxed">
+                <p>Only upload documents you have legal authority to verify</p>
+                <p>Ensure documents contain no malicious code or viruses</p>
+                <p>Respect privacy rights of individuals whose documents you verify</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-    --sidebar-accent: 240 4.8% 95.9%;
+        {/* Limitations */}
+        <Card className="bg-[#020817] border border-cyan-500/20 mb-8">
+          <CardContent className="p-6 space-y-5">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight">
+              <AlertTriangle className="h-5 w-5 text-cyan-400" />
+              Limitations and Disclaimers
+            </h2>
 
-    --sidebar-accent-foreground: 240 5.9% 10%;
+            <div className="space-y-4 text-blue-200/80 leading-relaxed">
+              <div>
+                <h4 className="text-cyan-300 font-semibold mb-1">
+                  Service Availability:
+                </h4>
+                <p>
+                  While we strive for 99.9% uptime, the platform may be unavailable due to maintenance,
+                  technical issues, or circumstances beyond our control.
+                </p>
+              </div>
 
-    --sidebar-border: 220 13% 91%;
+              <div>
+                <h4 className="text-cyan-300 font-semibold mb-1">
+                  Verification Accuracy:
+                </h4>
+                <p>
+                  Our verification results are based on available data and algorithms. While highly accurate,
+                  they should be used as part of a comprehensive verification process.
+                </p>
+              </div>
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+              <div>
+                <h4 className="text-cyan-300 font-semibold mb-1">
+                  Liability Limitation:
+                </h4>
+                <p>
+                  Team VeriTrust shall not be liable for any indirect, incidental, special,
+                  consequential, or punitive damages resulting from your use of this platform.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+        {/* Termination */}
+        <Card className="bg-[#020817] border border-cyan-500/20 mb-8">
+          <CardContent className="p-6 space-y-4">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight">
+              Termination
+            </h2>
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+            <div className="space-y-3 text-blue-200/80 leading-relaxed">
+              <p>
+                We reserve the right to terminate or suspend your access to the platform immediately,
+                without prior notice, for any violation of these Terms of Service.
+              </p>
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+              <p>
+                Upon termination, your right to use the platform will cease,
+                but verification records may be retained for audit and compliance purposes as required by law.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+        {/* Contact */}
+        <Card className="bg-[#020817] border border-cyan-500/20">
+          <CardContent className="p-6 space-y-4">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight">
+              Contact Information
+            </h2>
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+            <p className="text-blue-200/80">
+              For questions about these Terms of Service, contact us:
+            </p>
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+            <div className="space-y-2 text-blue-200/80 leading-relaxed">
+              <p><strong>Email:</strong> legal@docushield.com</p>
+              <p><strong>Phone:</strong> +91-651-XXX-XXXX</p>
+              <p>
+                <strong>Address:</strong> Team VeriTrust <br />
+                Parvati Paytha <br />
+                Pune - 411009, Maharashtra
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    @apply font-semibold leading-tight tracking-tight;
-  }
-
-  .glass-card {
-    @apply bg-card-glass backdrop-blur-sm border border-white/20;
-    box-shadow: var(--shadow-glass);
-  }
-
-  .hero-gradient {
-    background: var(--gradient-hero);
-  }
-
-  .card-gradient {
-    background: var(--gradient-card);
-  }
-}
-
-@layer components {
-  /* Animation utilities */
-  .animate-fade-in {
-    animation: fade-in 0.6s ease-out forwards;
-  }
-  
-  .animate-slide-up {
-    animation: slide-up 0.6s ease-out forwards;
-  }
-
-  .animate-scale-in {
-    animation: scale-in 0.4s ease-out forwards;
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  /* Hover effects */
-  .hover-lift {
-    @apply transition-all duration-300 hover:translate-y-[-4px];
-    transition: var(--transition-smooth);
-  }
-
-  .hover-lift:hover {
-    box-shadow: var(--shadow-elegant);
-  }
-
-  .hover-glow {
-    @apply relative overflow-hidden;
-    transition: var(--transition-smooth);
-  }
-
-  .hover-glow::before {
-    @apply absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0;
-    content: '';
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-  }
-
-  .hover-glow:hover::before {
-    transform: translateX(100%);
-  }
-
-  /* Stagger animations for lists */
-  .stagger-children > * {
-    opacity: 0;
-    animation: fade-in 0.6s ease-out forwards;
-  }
-
-  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
-  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
-  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
-  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
-  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
-  .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slide-up {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scale-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px hsl(var(--primary) / 0.6);
-  }
+      </div>
+    </section>
+  );
 }
