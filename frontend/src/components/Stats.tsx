@@ -37,7 +37,7 @@ function Counter({ end, suffix = "", prefix = "", duration = 2000 }: CounterProp
   }, [end, duration]);
 
   return (
-    <span className="font-display font-bold text-3xl">
+    <span className="font-display font-bold text-3xl text-white">
       {prefix}{count.toLocaleString()}{suffix}
     </span>
   );
@@ -95,44 +95,63 @@ const stats = [
 
 export function Stats() {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-[#020617] text-white">
       <div className="container">
+
+        {/* Heading */}
         <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">Live Statistics</Badge>
-          <h2 className="text-4xl font-display font-bold mb-6">
+          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-400/20">
+            Live Statistics
+          </Badge>
+
+          <h2 className="text-4xl font-bold mb-4">
             Trusted by Thousands Daily
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+
+          <p className="text-gray-400 max-w-2xl mx-auto">
             Real-time insights from our verification platform
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+        {/* Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
           {stats.map((stat, index) => (
-            <Card key={index} className="hover-lift border-primary/20">
+            <Card
+              key={index}
+              className="bg-white/5 border border-white/10 hover:border-cyan-400/40 transition-all duration-300 rounded-xl"
+            >
               <CardContent className="p-6">
+
+                {/* Top */}
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <stat.icon className="h-6 w-6 text-primary" />
+
+                  <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center">
+                    <stat.icon className="h-6 w-6 text-cyan-400" />
                   </div>
-                  <Badge variant="outline" className="text-xs text-success">
+
+                  <Badge className="text-xs bg-white/10 text-green-400 border border-white/10">
                     {stat.change}
                   </Badge>
                 </div>
-                
+
+                {/* Content */}
                 <div className="space-y-2">
                   <Counter 
                     end={stat.value} 
                     suffix={stat.suffix}
                     duration={2000 + index * 200}
                   />
-                  <p className="text-sm font-medium text-muted-foreground">
+
+                  <p className="text-sm font-medium text-gray-400">
                     {stat.label}
                   </p>
                 </div>
+
               </CardContent>
             </Card>
           ))}
+
         </div>
       </div>
     </section>
