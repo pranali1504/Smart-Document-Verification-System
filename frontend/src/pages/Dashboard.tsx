@@ -241,7 +241,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-card-glass to-primary/5">
+    <div className="min-h-screen bg-[#020617] text-white">
       <Navbar />
       <div className="container py-8">
         <div className="max-w-7xl mx-auto space-y-8">
@@ -251,7 +251,7 @@ export default function Dashboard() {
               <h1 className="text-4xl font-display font-bold">
                 Welcome back, {user?.name || "User"}
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-gray-400">
                 Here's your verification activity overview
               </p>
             </div>
@@ -259,7 +259,7 @@ export default function Dashboard() {
 
           {/* Quick Actions */}
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="border-primary/20 hover-lift bg-gradient-to-br from-primary/5 to-accent/5">
+            <Card className="bg-[#020817] border border-cyan-500/20 text-white">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 rounded-full bg-hero-gradient flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <FileSearch className="h-8 w-8 text-white" />
@@ -267,7 +267,7 @@ export default function Dashboard() {
                 <h3 className="font-display font-semibold text-xl mb-2">
                   New Verification
                 </h3>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-gray-400 mb-4">
                   Upload and verify a new certificate
                 </p>
                 <Link to="/verify">
@@ -278,7 +278,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card className="border-primary/20 hover-lift bg-gradient-to-br from-accent/5 to-secondary/5">
+            <Card className="bg-[#020817] border border-cyan-500/20 text-white">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-accent-light flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <History className="h-8 w-8 text-white" />
@@ -286,13 +286,13 @@ export default function Dashboard() {
                 <h3 className="font-display font-semibold text-xl mb-2">
                   View History
                 </h3>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-gray-400 mb-4">
                   Browse your verification records
                 </p>
                 <Button
-                  variant="outline"
+                  variant="hero"
                   size="lg"
-                  className="w-full shadow-md border-accent/20 hover:bg-accent/10"
+                  className="w-full shadow-md "
                   onClick={() => setShowAllHistoryModal(true)}
                 >
                   Browse History
@@ -306,7 +306,7 @@ export default function Dashboard() {
 
           <div className="grid lg:grid-cols-2 gap-6">
             {/* Recent Activity */}
-            <Card className="border-primary/20">
+            <Card className="bg-[#020817] border border-cyan-500/20 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <History className="h-5 w-5" />
@@ -316,7 +316,7 @@ export default function Dashboard() {
               <CardContent className="space-y-4">
                 {isLoadingVerifications ? (
                   <div className="flex items-center justify-center p-8">
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-gray-400">
                       Loading recent verifications...
                     </div>
                   </div>
@@ -328,14 +328,14 @@ export default function Dashboard() {
                     .map((verification) => (
                       <div
                         key={verification._id}
-                        className="flex items-center justify-between p-4 bg-muted/50 rounded-lg"
+                        className="flex items-center justify-between p-4 bg-[#020617] rounded-lg"
                       >
                         <div className="flex-1">
                           <p className="font-medium">{verification.name}</p>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-gray-400">
                             {verification.institution}
                           </p>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-xs text-gray-400">
                             {formatDate(verification.date)}
                           </p>
                         </div>
@@ -343,7 +343,7 @@ export default function Dashboard() {
                     ))
                 ) : (
                   <div className="flex items-center justify-center p-8">
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-gray-400">
                       No recent verifications found.
                     </div>
                   </div>
@@ -367,7 +367,7 @@ export default function Dashboard() {
                     <div className="space-y-4 mt-4">
                       {isLoadingVerifications ? (
                         <div className="flex items-center justify-center p-8">
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-sm text-gray-400">
                             Loading all verifications...
                           </div>
                         </div>
@@ -379,7 +379,7 @@ export default function Dashboard() {
                             .map((verification, index) => (
                               <div
                                 key={verification._id}
-                                className="flex items-center justify-between p-4 bg-muted/30 rounded-lg border"
+                                className="flex items-center justify-between p-4 bg-[#020617] rounded-lg border"
                               >
                                 <div className="flex items-center space-x-4">
                                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -391,15 +391,15 @@ export default function Dashboard() {
                                     <p className="font-medium">
                                       {verification.name}
                                     </p>
-                                    <p className="text-sm text-muted-foreground">
+                                    <p className="text-sm text-gray-400">
                                       {verification.institution}
                                     </p>
-                                    <p className="text-xs text-muted-foreground">
+                                    <p className="text-xs text-gray-400">
                                       {formatDate(verification.date)}
                                     </p>
                                   </div>
                                 </div>
-                                <Badge variant="outline" className="ml-4">
+                                <Badge variant="outline" className="border-cyan-500/30 text-cyan-400">
                                   <CheckCircle className="h-3 w-3 mr-1" />
                                   Processed
                                 </Badge>
@@ -409,8 +409,8 @@ export default function Dashboard() {
                       ) : (
                         <div className="flex items-center justify-center p-8">
                           <div className="text-center">
-                            <History className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                            <p className="text-sm text-muted-foreground">
+                            <History className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                            <p className="text-sm text-gray-400">
                               No verification history found.
                             </p>
                           </div>
@@ -423,7 +423,7 @@ export default function Dashboard() {
             </Card>
 
             {/* Performance Metrics */}
-            <Card className="border-primary/20">
+            <Card className="bg-[#020817] border border-cyan-500/20 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <TrendingUp className="h-5 w-5" />
@@ -436,7 +436,7 @@ export default function Dashboard() {
                     <span className="text-sm font-medium">
                       Processing Speed
                     </span>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-sm text-gray-400">
                       Excellent
                     </span>
                   </div>
@@ -446,7 +446,7 @@ export default function Dashboard() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Accuracy Rate</span>
-                    <span className="text-sm text-muted-foreground">97.5%</span>
+                    <span className="text-sm text-gray-400">97.5%</span>
                   </div>
                   <Progress value={97.5} className="h-2" />
                 </div>
@@ -456,7 +456,7 @@ export default function Dashboard() {
                     <span className="text-sm font-medium">
                       System Reliability
                     </span>
-                    <span className="text-sm text-muted-foreground">99.9%</span>
+                    <span className="text-sm text-gray-400">99.9%</span>
                   </div>
                   <Progress value={99.9} className="h-2" />
                 </div>
@@ -472,7 +472,7 @@ export default function Dashboard() {
           </div>
 
           {/* System Status */}
-          <Card className="border-primary/20 bg-gradient-to-br from-success/5 to-primary/5">
+          <Card className="bg-[#020817] border border-cyan-500/20 text-white">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Shield className="h-5 w-5" />

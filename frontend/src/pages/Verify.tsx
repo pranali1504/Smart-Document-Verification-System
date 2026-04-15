@@ -143,12 +143,12 @@ const PredictBBoxWidget = () => {
 
   return (
     <div className="space-y-4">
-      <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-4">
+      <div className="border-2 border-dashed border-cyan-500/30 rounded-lg p-4">
         <input
           type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files?.[0] ?? null)}
-          className="block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+          className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
         />
       </div>
 
@@ -883,7 +883,7 @@ export default function Verify() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-card-glass to-accent/5">
+    <div className="min-h-screen bg-[#020617] text-white">
       <Navbar />
 
       <div className="container py-8">
@@ -893,7 +893,7 @@ export default function Verify() {
             <h1 className="text-4xl font-display font-bold mb-4">
               Document Verification Workspace
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-gray-400">
               Upload your academic certificate for instant verification
             </p>
           </div>
@@ -906,7 +906,7 @@ export default function Verify() {
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     verificationStep >= 1
                       ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground"
+                      : "bg-[#020617] text-gray-400"
                   }`}
                 >
                   {verificationStep >= 1 ? (
@@ -923,7 +923,7 @@ export default function Verify() {
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     verificationStep >= 2
                       ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground"
+                      : "bg-[#020617] text-gray-400"
                   }`}
                 >
                   {verificationStep >= 2 ? (
@@ -940,7 +940,7 @@ export default function Verify() {
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     verificationStep >= 3
                       ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground"
+                      : "bg-[#020617] text-gray-400"
                   }`}
                 >
                   {verificationStep >= 3 ? (
@@ -957,7 +957,7 @@ export default function Verify() {
 
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Panel 1: Upload & Capture */}
-            <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-card shadow-lg">
+            <Card className="bg-[#020817] border border-cyan-500/20 text-white shadow-lg hover:shadow-cyan-500/10 transition">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Upload className="h-5 w-5" />
@@ -970,27 +970,27 @@ export default function Verify() {
                     {...getRootProps()}
                     className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
                       isDragActive
-                        ? "border-primary bg-primary/5"
-                        : "border-muted-foreground/25 hover:border-primary/50"
+                        ? "border-primary bg-[#020817]"
+                        : "border-cyan-500/30 hover:border-primary/50"
                     }`}
                   >
                     <input {...getInputProps()} />
-                    <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-lg font-medium mb-2">
                       Drop certificate here
                     </p>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <p className="text-sm text-gray-400 mb-4">
                       or click to browse files
                     </p>
                     <Badge variant="outline">PDF, JPG, PNG up to 10MB</Badge>
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 p-4 bg-muted rounded-lg">
+                    <div className="flex items-center space-x-3 p-4 bg-[#020617] rounded-lg">
                       <FileText className="h-8 w-8 text-primary" />
                       <div className="flex-1">
                         <p className="font-medium">{uploadedFile.name}</p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-gray-400">
                           {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
                         </p>
                       </div>
@@ -1006,14 +1006,14 @@ export default function Verify() {
                     {/* Choose New Document Button */}
                     <div
                       {...getRootProps()}
-                      className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-4 text-center cursor-pointer transition-colors hover:border-primary/50 hover:bg-primary/5"
+                      className="border-2 border-dashed border-cyan-500/30 rounded-lg p-4 text-center cursor-pointer transition-colors hover:border-primary/50 hover:bg-[#020817]"
                     >
                       <input {...getInputProps()} />
-                      <Upload className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                      <Upload className="h-8 w-8 text-gray-400 mx-auto mb-2" />
                       <p className="text-sm font-medium mb-1">
                         Choose New Document
                       </p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-gray-400">
                         Click or drop to upload a different file
                       </p>
                     </div>
@@ -1041,7 +1041,7 @@ export default function Verify() {
             </Card>
 
             {/* Panel 2: OCR & Preview */}
-            <Card className="border-primary/20 bg-gradient-to-br from-accent/5 to-card shadow-lg">
+           <Card className="bg-[#020817] border border-cyan-500/20 text-white shadow-lg hover:shadow-cyan-500/10 transition">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Scan className="h-5 w-5" />
@@ -1051,8 +1051,8 @@ export default function Verify() {
               <CardContent className="space-y-4">
                 {isProcessingOCR ? (
                   <div className="text-center py-8">
-                    <Clock className="h-12 w-12 text-muted-foreground mx-auto mb-4 animate-spin" />
-                    <p className="text-muted-foreground">
+                    <Clock className="h-12 w-12 text-gray-400 mx-auto mb-4 animate-spin" />
+                    <p className="text-gray-400">
                       Extracting text from document...
                     </p>
                   </div>
@@ -1061,7 +1061,7 @@ export default function Verify() {
                     {Object.entries(ocrData).map(([key, value]) => (
                       <div
                         key={key}
-                        className="flex justify-between items-center p-2 bg-muted/50 rounded"
+                        className="flex justify-between items-center p-2 bg-[#020617]/50 rounded"
                       >
                         <span className="text-sm font-medium capitalize">
                           {key.replace(/([A-Z])/g, " $1")}:
@@ -1072,8 +1072,8 @@ export default function Verify() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <Scan className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">
+                    <Scan className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-400">
                       Upload a document to see extracted data
                     </p>
                   </div>
@@ -1082,7 +1082,7 @@ export default function Verify() {
             </Card>
 
             {/* Panel 3: Verification Results */}
-            <Card className="border-primary/20 bg-gradient-to-br from-secondary/5 to-card shadow-lg">
+           <Card className="bg-[#020817] border border-cyan-500/20 text-white shadow-lg hover:shadow-cyan-500/10 transition">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Shield className="h-5 w-5" />
@@ -1092,8 +1092,8 @@ export default function Verify() {
               <CardContent className="space-y-4">
                 {isProcessingVerification ? (
                   <div className="text-center py-8">
-                    <Shield className="h-12 w-12 text-muted-foreground mx-auto mb-4 animate-pulse" />
-                    <p className="text-muted-foreground">
+                    <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4 animate-pulse" />
+                    <p className="text-gray-400">
                       Analyzing document authenticity...
                     </p>
                   </div>
@@ -1139,13 +1139,13 @@ export default function Verify() {
                                 className="w-full h-auto group-hover:opacity-90 transition-opacity"
                               />
                               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
-                                <div className="bg-white/90 rounded-full p-2">
+                                <div className="bg-black/70 rounded-full p-2">
                                   <ZoomIn className="h-5 w-5 text-gray-700" />
                                 </div>
                               </div>
                             </div>
                           </DialogTrigger>
-                          <DialogContent className="max-w-4xl w-full max-h-[90vh] overflow-auto">
+                          <DialogContent className="max-w-4xl w-full max-h-[90vh] overflow-auto bg-[#020817] text-white border border-cyan-500/20">
                             <DialogHeader>
                               <DialogTitle className="flex items-center space-x-2">
                                 <Shield className="h-5 w-5" />
@@ -1236,8 +1236,8 @@ export default function Verify() {
                                         key={index}
                                         className={`p-3 rounded border ${
                                           detection.class_name === "fake"
-                                            ? "bg-red-50 border-red-200"
-                                            : "bg-green-50 border-green-200"
+                                            ? "bg-red-500/10 border-red-200"
+                                            : "bg-green-500/10 border-green-200"
                                         }`}
                                       >
                                         <div className="flex items-center justify-between">
@@ -1309,7 +1309,7 @@ export default function Verify() {
                     <div className="space-y-2">
                       <h4 className="font-medium">Detection Summary</h4>
                       <div className="grid grid-cols-2 gap-2">
-                        <div className="p-2 bg-green-50 border border-green-200 rounded text-center">
+                        <div className="p-2 bg-green-500/10 border border-green-200 rounded text-center">
                           <div className="font-bold text-green-600">
                             {verificationResult.summary.trueDetections}
                           </div>
@@ -1317,7 +1317,7 @@ export default function Verify() {
                             Authentic Regions
                           </div>
                         </div>
-                        <div className="p-2 bg-red-50 border border-red-200 rounded text-center">
+                        <div className="p-2 bg-red-500/10 border border-red-200 rounded text-center">
                           <div className="font-bold text-red-600">
                             {verificationResult.summary.fakeDetections}
                           </div>
@@ -1340,7 +1340,7 @@ export default function Verify() {
                               (field, index) => (
                                 <div
                                   key={index}
-                                  className="flex justify-between items-center p-2 bg-red-50 border border-red-200 rounded text-sm"
+                                  className="flex justify-between items-center p-2 bg-red-500/10 border border-red-200 rounded text-sm"
                                 >
                                   <span className="text-red-700 font-medium">
                                     {field.field}
@@ -1365,8 +1365,8 @@ export default function Verify() {
                               key={index}
                               className={`flex items-center justify-between p-2 rounded text-sm ${
                                 detection.class_name === "fake"
-                                  ? "bg-red-50 border border-red-200"
-                                  : "bg-green-50 border border-green-200"
+                                  ? "bg-red-500/10 border border-red-200"
+                                  : "bg-green-500/10 border border-green-200"
                               }`}
                             >
                               <div className="flex items-center space-x-2">
@@ -1409,8 +1409,8 @@ export default function Verify() {
                       <div
                         className={`p-3 rounded ${
                           verificationResult.status === "valid"
-                            ? "bg-green-50 border border-green-200"
-                            : "bg-red-50 border border-red-200"
+                            ? "bg-green-500/10 border border-green-200"
+                            : "bg-red-500/10 border border-red-200"
                         }`}
                       >
                         <p
@@ -1444,8 +1444,8 @@ export default function Verify() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <Shield className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">
+                    <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-400">
                       Verification results will appear here
                     </p>
                   </div>
