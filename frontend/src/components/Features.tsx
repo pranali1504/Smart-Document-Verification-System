@@ -1,10 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Zap, 
-  Shield, 
-  CheckCircle, 
-  FileSearch, 
+import {
+  Zap,
+  Shield,
+  CheckCircle,
+  FileSearch,
   Scan,
   Database,
   Lock,
@@ -20,7 +20,7 @@ const steps = [
   },
   {
     icon: Scan,
-    title: "OCR Analysis", 
+    title: "OCR Analysis",
     description: "AI extracts key information and detects tampering",
     time: "15 seconds"
   },
@@ -67,71 +67,105 @@ const features = [
 
 export function Features() {
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-20 bg-[#020617] text-white">
       <div className="container">
-        {/* How It Works */}
+
+        {/* Heading */}
         <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">How It Works</Badge>
-          <h2 className="text-4xl font-display font-bold mb-6">
+          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-400/20">
+            How It Works
+          </Badge>
+
+          <h2 className="text-4xl font-bold mb-4">
             Verification Made Simple
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+
+          <p className="text-gray-400 max-w-2xl mx-auto">
             Our AI-powered platform verifies academic credentials in four simple steps
           </p>
         </div>
 
-        {/* Steps Timeline */}
-        <div className="grid md:grid-cols-4 gap-8 mb-20 stagger-children">
+        {/* Steps */}
+        <div className="grid md:grid-cols-4 gap-8 mb-20 relative">
+
           {steps.map((step, index) => (
-            <div key={index} className="relative">
-              {/* Connection Line */}
+            <div key={index} className="relative text-center">
+
+              {/* FIXED CONNECTOR LINE */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-6 left-full w-full h-0.5 bg-gradient-to-r from-primary to-primary/30 z-0" />
+                <div className="hidden md:block absolute top-6 left-[60%] w-[80%] h-[2px] bg-cyan-500/30 z-0" />
               )}
-              
-              <Card className="hover-lift glass-card border-primary/20 relative z-10">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 rounded-full bg-hero-gradient flex items-center justify-center mx-auto mb-4">
-                    <step.icon className="h-6 w-6 text-white" />
+
+              <Card className="bg-white/5 border border-white/10 backdrop-blur-md hover:border-cyan-400/40 transition-all duration-300 rounded-xl">
+                <CardContent className="p-6">
+
+                  {/* ICON */}
+                  <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-cyan-500/20 flex items-center justify-center">
+                    <step.icon className="h-6 w-6 text-cyan-400" />
                   </div>
-                  <h3 className="font-display font-semibold mb-2">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{step.description}</p>
-                  <Badge variant="outline" className="text-xs">
+
+                  <h3 className="font-semibold mb-2 text-white">
+                    {step.title}
+                  </h3>
+
+                  {/* FIXED GREY TEXT */}
+                  <p className="text-sm text-gray-400 mb-3">
+                    {step.description}
+                  </p>
+
+                  <Badge className="text-xs bg-white/10 text-gray-300 border border-white/10">
                     <Clock className="h-3 w-3 mr-1" />
                     {step.time}
                   </Badge>
+
                 </CardContent>
               </Card>
             </div>
           ))}
         </div>
 
-        {/* Why Trust Us */}
+        {/* SECOND SECTION */}
         <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">Why Choose Us</Badge>
-          <h2 className="text-4xl font-display font-bold mb-6">
+          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-400/20">
+            Why Choose Us
+          </Badge>
+
+          <h2 className="text-4xl font-bold">
             Built for Trust & Reliability
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
           {features.map((feature, index) => (
-            <Card key={index} className="hover-lift border-primary/20">
+            <Card
+              key={index}
+              className="bg-white/5 border border-white/10 hover:border-cyan-400/40 transition-all duration-300 rounded-xl"
+            >
               <CardContent className="p-6 text-center">
-                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="h-7 w-7 text-primary" />
+
+                <div className="w-14 h-14 rounded-full bg-cyan-500/20 flex items-center justify-center mx-auto mb-4">
+                  <feature.icon className="h-7 w-7 text-cyan-400" />
                 </div>
-                <div className="flex justify-center mb-2">
-                  <Badge variant="outline" className="text-xs">
-                    {feature.badge}
-                  </Badge>
-                </div>
-                <h3 className="font-display font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+
+                <Badge className="mb-2 text-xs bg-white/10 text-gray-300 border border-white/10">
+                  {feature.badge}
+                </Badge>
+
+                <h3 className="font-semibold mb-2 text-white">
+                  {feature.title}
+                </h3>
+
+                {/* FIXED GREY */}
+                <p className="text-sm text-gray-400">
+                  {feature.description}
+                </p>
+
               </CardContent>
             </Card>
           ))}
         </div>
+
       </div>
     </section>
   );
