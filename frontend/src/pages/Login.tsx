@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Shield, ArrowLeft, CheckCircle, Mail } from "lucide-react";
 import heroImage from "@/assets/DocVer2.jpeg";
+import { AUTH_API_URL } from "@/config";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function Login() {
     }
   }, [cooldown]);
 
-  const API_BASE_URL = "http://localhost:5000";
+  const API_BASE_URL = AUTH_API_URL;
 
   // ================= LOGIN =================
 

@@ -29,13 +29,13 @@ This folder contains two ML services:
    ```
 
 4. Create a `.env` file in the `OCR_api` folder:
-   ```env
+```env
    GEMINI_API_KEY=your_gemini_api_key_here
    ```
 
 5. Run the service:
    ```bash
-   uvicorn main:app --reload --port 8000 --host 0.0.0.0
+uvicorn main:app --reload --port 8000 --host 0.0.0.0
    ```
    
    Or use the batch file:
@@ -95,7 +95,7 @@ This folder contains two ML services:
 
 **Terminal 1 (OCR API):**
 ```bash
-cd HackOdhisha-TeamFB\ML\OCR_api
+cd \ML\OCR_api
 venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
@@ -103,7 +103,7 @@ uvicorn main:app --reload --port 8000
 
 **Terminal 2 (Forge Detection):**
 ```bash
-cd HackOdhisha-TeamFB\ML\forge_detection
+cd \ML\forge_detection
 venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8001

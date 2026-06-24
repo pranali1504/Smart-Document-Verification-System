@@ -17,15 +17,35 @@ app.use(cookieParser());
 const allowedOrigins = [
   "https://hack-odhisha-team-fb.vercel.app", 
   "http://localhost:3000",
-  "http://localhost:8080"
+  "http://localhost:8080",
+  "http://localhost:5173"
 ];
 
-app.use(cors({
-  origin: allowedOrigins,
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl, or server-to-server)
+    if (!origin) return callback(null, true);
+    
+    // Check if the origin is explicitly allowed, ends with .vercel.app, or is localhost/127.0.0.1
+    const isAllowed = allowedOrigins.includes(origin) || 
+                      origin.endsWith('.vercel.app') || 
+                      /^http:\/\/localhost:\d+$/.test(origin) ||
+                      /^http:\/\/127\.0\.0\.1:\d+$/.test(origin);
+                      
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Parse body
 app.use(express.json());
@@ -55,9 +75,9 @@ connectDb().catch((error) => {
 });
 
 // Start server immediately
-const server = app.listen(PORT, 'localhost', () => {
-  console.log(`✅ Server is running on http://localhost:${PORT}`);
-  console.log(`✅ Server is also accessible on http://127.0.0.1:${PORT}`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server is running on http://0.0.0.0:${PORT}`);
+  console.log(`✅ Server is also accessible on http://localhost:${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   
   // Check and display configuration status

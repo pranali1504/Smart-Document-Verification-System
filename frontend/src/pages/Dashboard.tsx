@@ -27,6 +27,7 @@ import {
   Zap,
   Scan,
 } from "lucide-react";
+import { AUTH_API_URL, OCR_API_URL, FORGERY_API_URL } from "@/config";
 
 // Interface for verification data from API
 interface VerificationData {
@@ -58,7 +59,7 @@ export default function Dashboard() {
   const [isLoadingVerifications, setIsLoadingVerifications] = useState(false);
   const [showAllHistoryModal, setShowAllHistoryModal] = useState(false);
 
-  const API_BASE_URL = "http://localhost:5000";
+  const API_BASE_URL = AUTH_API_URL;
 
   // Static stats data
   const stats = [
@@ -188,7 +189,7 @@ export default function Dashboard() {
       const formData = new FormData();
       formData.append("file", uploadedDoc);
       const response = await fetch(
-        "http://localhost:8000/extract/",
+        `${OCR_API_URL}/extract/`,
         {
           method: "POST",
           body: formData,
@@ -209,7 +210,7 @@ export default function Dashboard() {
     formData.append("file", uploadedDoc);
     try {
       const response = await fetch(
-        "http://localhost:8001/predict",
+        `${FORGERY_API_URL}/predict`,
         {
           method: "POST",
           body: formData,

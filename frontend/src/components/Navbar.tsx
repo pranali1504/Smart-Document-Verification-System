@@ -14,6 +14,7 @@ import {
   LogOut,
   User,
 } from "lucide-react";
+import { AUTH_API_URL } from "@/config";
 
 export function Navbar() {
   const [user, setUser] = useState(null);
@@ -21,7 +22,7 @@ export function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const API_BASE_URL = "http://localhost:5000";
+  const API_BASE_URL = AUTH_API_URL;
 
   useEffect(() => {
     // Fetch user data when component mounts

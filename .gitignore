@@ -6,3 +6,11 @@ ENV/
 
 # Node (optional but recommended)
 node_modules/
+
+# Secrets and environment configurations
+.env
+.env*.local
+ML/**/*.env
+**/__pycache__/
+**/*.pyc
+

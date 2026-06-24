@@ -29,6 +29,7 @@ import {
   Shield,
   ZoomIn,
 } from "lucide-react";
+import { AUTH_API_URL, OCR_API_URL, FORGERY_API_URL } from "@/config";
 import { useToast } from "@/hooks/use-toast";
 
 // Mock user - in real app this would come from auth context
@@ -224,7 +225,7 @@ export default function Verify() {
       const formData = new FormData();
       formData.append("file", file);
       const response = await fetch(
-        "http://localhost:8000/extract/",
+        `${OCR_API_URL}/extract/`,
         {
           method: "POST",
           body: formData,
@@ -249,7 +250,7 @@ export default function Verify() {
       if (ocrResult.Name && ocrResult.Institution) {
         const token = localStorage.getItem("authToken");
         fetch(
-          "http://localhost:5000/api/users/results",
+          `${AUTH_API_URL}/api/users/results`,
           {
             method: "POST",
             headers: {
@@ -289,7 +290,7 @@ export default function Verify() {
       const formData = new FormData();
       formData.append("file", file);
       const response = await fetch(
-        "http://localhost:8001/predict",
+        `${FORGERY_API_URL}/predict`,
         {
           method: "POST",
           body: formData,
@@ -1432,7 +1433,7 @@ export default function Verify() {
                     {/* Actions */}
                     <div className="w-full">
                       <Button
-                        variant="outline"
+                        variant="hero"
                         size="sm"
                         onClick={downloadReport}
                         className="w-full"
